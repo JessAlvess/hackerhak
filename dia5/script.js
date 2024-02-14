@@ -16,25 +16,66 @@ let upperCaseIndex = []
 const isUpperCase = str => str === str.toUpperCase()
 let outputText = ''
 
+function splitMethod(inputText) {
+    for (let index = 0; index < inputText.length - 2; index++) {
+        if (isUpperCase(inputText[index])) {
+            upperCaseIndex.push(index)
+        }        
+    }
+    outputText = inputText.slice(0, inputText.length - 2)
+    lastIndex = 0
+    let position
+    let wordsArr = []
+    for (let index = 0 ; index < upperCaseIndex.length + 1; index++) {
+        if (index === upperCaseIndex.length) {
+            position = outputText.length
+        } else {
+            position = [upperCaseIndex[index]]
+        }
+        wordsArr.push((outputText.slice(lastIndex, position)).toLowerCase())
+        wordsArr.push(' ')
+        lastIndex = [upperCaseIndex[index]]
+    }
+    let finalText = ''
+    for (let index = 0; index < wordsArr.length; index++) {
+        finalText = ''.concat(...wordsArr);
+    }
+    return console.log(finalText);
+}
+
+function splitClass(inputText) {
+    for (let index = 0; index < inputText.length; index++) {
+        if (isUpperCase(inputText[index])) {
+            upperCaseIndex.push(index)
+        }        
+    }
+    outputText = inputText.slice(0, inputText.length)
+    lastIndex = 0
+    let position
+    let wordsArr = []
+    for (let index = 0 ; index < upperCaseIndex.length; index++) {
+        if (index === upperCaseIndex.length) {
+            position = outputText.length
+        } else {
+            position = upperCaseIndex[index + 1]
+        }
+        wordsArr.push((outputText.slice(lastIndex, position)).toLowerCase())
+        wordsArr.push(' ')
+        lastIndex = upperCaseIndex[index + 1]
+    }
+    let finalText
+    for (let index = 0; index < wordsArr.length; index++) {
+        finalText = ''.concat(...wordsArr);
+    }
+    return console.log(finalText);
+}
+
 if (method === 'S') {
     
     if (type === 'M') {
-        for (let index = 0; index < inputText.length - 2; index++) {
-            if (isUpperCase(inputText[index])) {
-                upperCaseIndex.push(index)
-            }        
-        }
-
-        console.log(upperCaseIndex);
-
-        outputText = inputText.slice(0, inputText.length - 2)
-
-        for (let index = 0; index < upperCaseIndex.length; index++) {
-            outputText.replace(outputText[upperCaseIndex[index]], ` `)        
-            
-        }
-        console.log(outputText);
-
+        splitMethod(inputText)
+    } else if (type === 'C') {
+        splitClass(inputText)
     }
 
 
@@ -45,4 +86,4 @@ if (method === 'S') {
 
 } 
 
-console.log(processData(input5));
+console.log(processData(input3));
