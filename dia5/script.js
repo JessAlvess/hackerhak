@@ -6,6 +6,14 @@ const input4 = 'C;M;white sheet of paper'
 const input5 = 'S;M;industrialRubberTyredGantry()'
 const input6 = 'S;V;pictureFrame'
 
+const in1 = 'S;V;iPad'
+const in2 = 'C;M;mouse pad'
+const in3 = 'C;C;code swarm'
+const in4 = 'S;C;OrangeHighlighter'
+
+
+
+
 
 function processData(input) {
     //Enter your code here
@@ -38,7 +46,7 @@ function processData(input) {
     }
     let finalText = ''.concat(...wordsArr).trim();
     
-    return finalText;
+    return finalText.trim();
     }
 
     function splitClass(inputText) {
@@ -65,7 +73,7 @@ function processData(input) {
     for (let index = 0; index < wordsArr.length; index++) {
         finalText = ''.concat(...wordsArr);
     }
-    return finalText;
+    return finalText.trim();
     }
 
     function splitVariable(inputText) {
@@ -92,7 +100,7 @@ function processData(input) {
     for (let index = 0; index < wordsArr.length; index++) {
         finalText = ''.concat(...wordsArr);
     }
-    return finalText;
+    return finalText.trim();
     }
 
     function combineVariable(inputText) {
@@ -128,7 +136,7 @@ function processData(input) {
     for (let index = 0; index < wordsArr.length; index++) {
         finalText = ''.concat(...wordsArr);
     }
-    return finalText;
+    return finalText.trim();
     }
 
     function combineMethod(inputText) {
@@ -165,7 +173,7 @@ function processData(input) {
     for (let index = 0; index < wordsArr.length; index++) {
         finalText = ''.concat(...wordsArr);
     }
-    return finalText;
+    return finalText.trim();
     }
 
     function combineClass(inputText) {
@@ -197,34 +205,38 @@ function processData(input) {
     for (let index = 0; index < wordsArr.length; index++) {
         finalText = ''.concat(...wordsArr);
     }
-    return finalText;
+    return finalText.trim();
     }
 
     if (method === 'S') {
     if (type === 'M') {
-        return splitMethod(inputText)
+        return console.log(splitMethod(inputText))
     } else if (type === 'C') {
-        return splitClass(inputText)
+        return console.log(splitClass(inputText))
     } else {
-        return splitVariable(inputText)
+        return console.log(splitVariable(inputText))
     }
     } else {
     if (type === 'V') {
-        return combineVariable(inputText)
+        return console.log(combineVariable(inputText))
     } else if (type === 'M') {
-        return combineMethod(inputText)
+        return console.log(combineMethod(inputText))
     } else {
-        return combineClass(inputText)
+        return console.log(combineClass(inputText))
     }
     }
 } 
 
-console.log(processData(input));
-console.log(processData(input1));
-console.log(processData(input2));
-console.log(processData(input3));
-console.log(processData(input4));
-console.log(processData(input5));
-console.log(processData(input6));
+// console.log(processData(input));
+// console.log(processData(input1));
+// console.log(processData(input2));
+// console.log(processData(input3));
+// console.log(processData(input4));
+// console.log(processData(input5));
+// console.log(processData(input6));
 
+console.log(processData(in1));
+console.log(processData(in2));
+console.log(processData(in3));
+console.log(processData(in4));
 
