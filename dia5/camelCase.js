@@ -24,6 +24,37 @@ function processData(input) {
     return finalText
     }
 
+    const combineMethod = (str, upperCaseArr) => {
+        lastIndex = 0
+        let position
+        let wordsArr = []
+        let finalText
+        for (let index = 0 ; index <= upperCaseArr.length; index++) {
+            if (index === upperCaseArr.length) {
+                position = str.length
+            } else {
+                position = upperCaseArr[index]
+            }
+            if (index === 0) {
+                wordsArr.push(((str.slice(lastIndex, position)).toLowerCase()).trim())
+                
+            } else {
+                let temporaryString = ((str.slice(lastIndex, position)).toLowerCase()).trim()
+                let upperCaseFirstLetter = temporaryString.charAt(0).toUpperCase()
+                let temporaryStringSlices = temporaryString.slice(1)
+                let finalString = ''.concat(upperCaseFirstLetter, temporaryStringSlices)
+                wordsArr.push(finalString)
+            }
+            lastIndex = upperCaseArr[index]
+        }
+        wordsArr.push('()')
+        
+        for (let index = 0; index < wordsArr.length; index++) {
+            finalText = ''.concat(...wordsArr);
+        }
+        finalText = finalText.trim();
+        return finalText
+    }
 
   const getUpperCaseIndex = (str) => {
     const upperCaseArr = [];
@@ -36,14 +67,8 @@ function processData(input) {
 
   const combine = (type, index) => {
     if (type === "V") {
-      console.log(
-        `combine the variable that have the first semi colon at index ${index}`
-      );
       let str = takeTheStringToTransform(index);
-      console.log(str);
-      console.log(`Input string: ${str}`);
-
-      console.log(getUpperCaseIndex(str));
+      getUpperCaseIndex(str)
 
       console.log();
     } else if (type === "C") {
@@ -58,17 +83,10 @@ function processData(input) {
 
       console.log();
     } else {
-      console.log(
-        `combine the method that have the first semi colon at index ${index}`
-      );
-      let str = takeTheStringToTransform(index);
-      console.log(str);
-      console.log(`Input string: ${str}`);
-
-      console.log(getUpperCaseIndex(str));
-
-      console.log();
-    }
+        let str = takeTheStringToTransform(index);
+        const upperCaseArr = getUpperCaseIndex(str)
+        return console.log(combineMethod(str, upperCaseArr)), console.log()
+      }
   };
 
   const split = (type, index) => {
