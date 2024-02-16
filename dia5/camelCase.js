@@ -1,80 +1,135 @@
-const in1 = 'S;V;iPad   C;M;mouse pad   C;C;code swarm   S;C;OrangeHighlighter'
+const in1 = "S;V;iPad   C;M;mouse pad   C;C;code swarm   S;C;OrangeHighlighter";
 
 function processData(input) {
-    //Enter your code here
-  let string = ''
-  string += input
+  //Enter your code here
+  let string = "";
+  string += input;
 
+  const splitVariable = (str, upperCaseArr) => {
+    let position
+    lastIndex = 0
+    let wordsArr = []
+    for (let index = 0 ; index < upperCaseArr.length + 1; index++) {
+        if (index === upperCaseArr.length) {
+            position = str.length
+        } else {
+            position = [upperCaseArr[index]]
+        }
+        wordsArr.push((str.slice(lastIndex, position)).toLowerCase())
+        wordsArr.push(' ')
+        lastIndex = [upperCaseArr[index]]
+    }
+    let finalText = ''.concat(...wordsArr).trim();
+    finalText = finalText.trim();
+    return finalText
+    }
+
+
+  const getUpperCaseIndex = (str) => {
+    const upperCaseArr = [];
+    const isUpperCase = (str) => str === str.toUpperCase();
+    for (let i = 0; i < str.length; i++) {
+      const testCharacter = isUpperCase(str[i]) ? upperCaseArr.push(i) : false;
+    }
+    return upperCaseArr;
+  };
 
   const combine = (type, index) => {
+    if (type === "V") {
+      console.log(
+        `combine the variable that have the first semi colon at index ${index}`
+      );
+      let str = takeTheStringToTransform(index);
+      console.log(str);
+      console.log(`Input string: ${str}`);
 
-      if (type === 'V') {
-        console.log(`combine the variable that have the first semi colon at index ${index}`)
-        let str = takeTheStringToTransform(index)
-        console.log(str);
-        console.log();
-      } else if (type === 'C') {
-        console.log(`combine the class that have the first semi colon at index ${index}`)
-        let str = takeTheStringToTransform(index)
-        console.log(str);
-        console.log();
-      } else {
-        console.log(`combine the method that have the first semi colon at index ${index}`)
-        let str = takeTheStringToTransform(index)
-        console.log(str);
-        console.log();
-      }
-  }
-  
-  const split = (type, index) => {    
+      console.log(getUpperCaseIndex(str));
 
-      if (type === 'V') {
-        console.log(`split the variable that have the first semi colon at index ${index}`)
-        let str = takeTheStringToTransform(index)
-        console.log(str);
-        console.log();
-      } else if (type === 'C') {
-        console.log(`split the class that have the first semi colon at index ${index}`)
-        let str = takeTheStringToTransform(index)
-        console.log(str);
-        console.log();
-      } else {
-        console.log(`split the method that have the first semi colon at index ${index}`)
-        let str = takeTheStringToTransform(index)
-        console.log(str);
-        console.log();
-      }
-  }
-  
+      console.log();
+    } else if (type === "C") {
+      console.log(
+        `combine the class that have the first semi colon at index ${index}`
+      );
+      let str = takeTheStringToTransform(index);
+      console.log(str);
+      console.log(`Input string: ${str}`);
+
+      console.log(getUpperCaseIndex(str));
+
+      console.log();
+    } else {
+      console.log(
+        `combine the method that have the first semi colon at index ${index}`
+      );
+      let str = takeTheStringToTransform(index);
+      console.log(str);
+      console.log(`Input string: ${str}`);
+
+      console.log(getUpperCaseIndex(str));
+
+      console.log();
+    }
+  };
+
+  const split = (type, index) => {
+    if (type === "V") {
+        let str = takeTheStringToTransform(index);
+        const upperCaseArr = getUpperCaseIndex(str)
+        return console.log(splitVariable(str, upperCaseArr)), console.log();
+    } else if (type === "C") {
+      console.log(
+        `split the class that have the first semi colon at index ${index}`
+      );
+      let str = takeTheStringToTransform(index);
+      console.log(str);
+      console.log(`Input string: ${str}`);
+
+      console.log(getUpperCaseIndex(str));
+
+      console.log();
+    } else {
+      console.log(
+        `split the method that have the first semi colon at index ${index}`
+      );
+      let str = takeTheStringToTransform(index);
+      console.log(str);
+      console.log(`Input string: ${str}`);
+
+      console.log(getUpperCaseIndex(str));
+
+      console.log();
+    }
+  };
+
   const testMethod = (index) => {
-      testType(index, string[index - 1])
-  }
-  
+    testType(index, string[index - 1]);
+  };
+
   const testType = (index, method) => {
-      let type = string[index + 1]
-      if (method === 'C'){
-          combine(type, index)
-      } else {
-          split(type, index)
-      }
-  }
+    let type = string[index + 1];
+    if (method === "C") {
+      combine(type, index);
+    } else {
+      split(type, index);
+    }
+  };
 
   const takeTheStringToTransform = (index) => {
-    const firstIndex = index + 3
-    let finalIndex
-        for (let i = index; i < string.length; i++) {
-            if ((string[i] === ' ') && (string[i + 1] === ' ')) {
-                finalIndex = i
-                break
-            }
-        }
-    return string.slice(firstIndex, finalIndex)
+    const firstIndex = index + 3;
+    let finalIndex;
+    for (let i = index; i < string.length; i++) {
+      if (string[i] === " " && string[i + 1] === " ") {
+        finalIndex = i;
+        break;
+      }
+    }
+    return string.slice(firstIndex, finalIndex);
+  };
+
+  for (i = 0; i < string.length; i += 1) {
+    const positionIsValid =
+      string[i] === ";" && string[i + 2] === ";" ? testMethod(i) : false;
   }
-  
-  for (i = 0; i < string.length; i += 1){
-      const positionIsValid = string[i] === ';' && string[i+2] === ';' ? testMethod(i) : false  
-  }
-  
-}; 
+}
 
 console.log(processData(in1));
