@@ -220,7 +220,6 @@ function processData(input) {
     const positionIsValid =
       string[i] === ";" && string[i + 2] === ";" ? testMethod(i) : false;
   }
-
 }
 
 // console.log(processData(test));
