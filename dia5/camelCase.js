@@ -1,11 +1,15 @@
-const in1 = "S;V;iPad   C;M;mouse pad   C;C;code swarm   S;C;OrangeHighlighter";
+const test = 'S;M;plasticCup()C;V;mobile phoneC;C;coffee machineS;C;LargeSoftwareBookC;M;white sheet of paperS;V;pictureFrame'
+
+const test1 = "S;V;iPadC;M;mouse padC;C;code swarmS;C;OrangeHighlighter";
+
+const test2 = 'C;V;can of cokeS;M;sweatTea()S;V;epsonPrinterC;M;santa clausC;C;mirror'
 
 function processData(input) {
   //Enter your code here
   let string = "";
   string += input;
 
-  const splitVariable = (str, upperCaseArr) => {
+    const splitVariable = (str, upperCaseArr) => {
     let position
     lastIndex = 0
     let wordsArr = []
@@ -20,8 +24,49 @@ function processData(input) {
         lastIndex = [upperCaseArr[index]]
     }
     let finalText = ''.concat(...wordsArr).trim();
-    finalText = finalText.trim();
     return finalText
+    }
+
+    const splitClass = (str, upperCaseArr) => {
+      const outputText= str
+    let lastIndex = 0
+    let position
+    let wordsArr = []
+    for (let index = 0 ; index < upperCaseArr.length; index++) {
+        if (index === upperCaseArr.length) {
+            position = outputText.length
+        } else {
+            position = upperCaseArr[index + 1]
+        }
+        wordsArr.push((outputText.slice(lastIndex, position)).toLowerCase())
+        wordsArr.push(' ')
+        lastIndex = upperCaseArr[index + 1]
+    }
+    let finalText
+    for (let index = 0; index < wordsArr.length; index++) {
+        finalText = (''.concat(...wordsArr)).trim();
+    }
+    return finalText;
+    }
+
+    const splitMethod = (str, upperCaseArr) => {
+    let outputText = str
+    let lastIndex = 0
+    let position
+    let wordsArr = []
+    for (let index = 0 ; index < upperCaseArr.length + 1; index++) {
+        if (index === upperCaseArr.length) {
+            position = outputText.length
+        } else {
+            position = [upperCaseArr[index]]
+        }
+        wordsArr.push((outputText.slice(lastIndex, position)).toLowerCase())
+        wordsArr.push(' ')
+        lastIndex = [upperCaseArr[index]]
+    }
+    wordsArr = wordsArr.slice(0, -5)
+    let finalText = ''.concat(...wordsArr).trim();
+    return finalText;
     }
 
     const combineMethod = (str, upperCaseArr) => {
@@ -48,12 +93,61 @@ function processData(input) {
             lastIndex = upperCaseArr[index]
         }
         wordsArr.push('()')
-        
-        for (let index = 0; index < wordsArr.length; index++) {
-            finalText = ''.concat(...wordsArr);
-        }
-        finalText = finalText.trim();
+        finalText = ''.concat(...wordsArr).trim();
         return finalText
+    }
+
+    const combineClass = (str, upperCaseArr) => {
+      outputText = str
+      lastIndex = 0
+      let position
+      let wordsArr = []
+      let finalText
+      for (let index = 0 ; index <= upperCaseArr.length; index++) {
+          if (index === upperCaseArr.length) {
+              position = str.length
+          } else {
+              position = upperCaseArr[index]
+          }
+          let temporaryString = ((outputText.slice(lastIndex, position)).toLowerCase()).trim()
+          let upperCaseFirstLetter = temporaryString.charAt(0).toUpperCase()
+          let temporaryStringSlices = temporaryString.slice(1)
+          let finalString = ''.concat(upperCaseFirstLetter, temporaryStringSlices)
+          wordsArr.push(finalString)
+          lastIndex = upperCaseArr[index]
+      }
+      finalText = ''.concat(...wordsArr).trim();
+      return finalText;
+    }    
+  
+    const combineVariable = (str, upperCaseArr) => {
+      outputText = str
+    lastIndex = 0
+    let position
+    let wordsArr = []
+    let finalText
+    for (let index = 0 ; index <= upperCaseArr.length; index++) {
+        if (index === upperCaseArr.length) {
+            position = outputText.length
+        } else {
+            position = upperCaseArr[index]
+        }
+        if (index === 0) {
+            wordsArr.push(((outputText.slice(lastIndex, position)).toLowerCase()).trim())
+            
+        } else {
+            let temporaryString = ((outputText.slice(lastIndex, position)).toLowerCase()).trim()
+            let upperCaseFirstLetter = temporaryString.charAt(0).toUpperCase()
+            let temporaryStringSlices = temporaryString.slice(1)
+            let finalString = ''.concat(upperCaseFirstLetter, temporaryStringSlices)
+            wordsArr.push(finalString)
+        }
+        lastIndex = upperCaseArr[index]
+    }
+
+        finalText = ''.concat(...wordsArr);
+      finalText = finalText.trim()
+    return finalText;
     }
 
   const getUpperCaseIndex = (str) => {
@@ -68,54 +162,32 @@ function processData(input) {
   const combine = (type, index) => {
     if (type === "V") {
       let str = takeTheStringToTransform(index);
-      getUpperCaseIndex(str)
-
-      console.log();
+      const upperCaseArr = getUpperCaseIndex(str)
+      return console.log(combineVariable(str, upperCaseArr))
     } else if (type === "C") {
-      console.log(
-        `combine the class that have the first semi colon at index ${index}`
-      );
       let str = takeTheStringToTransform(index);
-      console.log(str);
-      console.log(`Input string: ${str}`);
-
-      console.log(getUpperCaseIndex(str));
-
-      console.log();
+      const upperCaseArr = getUpperCaseIndex(str)
+      return console.log(combineClass(str, upperCaseArr))
     } else {
-        let str = takeTheStringToTransform(index);
+        const str = takeTheStringToTransform(index);
         const upperCaseArr = getUpperCaseIndex(str)
-        return console.log(combineMethod(str, upperCaseArr)), console.log()
+        return console.log(combineMethod(str, upperCaseArr))
       }
   };
 
   const split = (type, index) => {
     if (type === "V") {
-        let str = takeTheStringToTransform(index);
+        const str = takeTheStringToTransform(index);
         const upperCaseArr = getUpperCaseIndex(str)
-        return console.log(splitVariable(str, upperCaseArr)), console.log();
+        return console.log(splitVariable(str, upperCaseArr))
     } else if (type === "C") {
-      console.log(
-        `split the class that have the first semi colon at index ${index}`
-      );
-      let str = takeTheStringToTransform(index);
-      console.log(str);
-      console.log(`Input string: ${str}`);
-
-      console.log(getUpperCaseIndex(str));
-
-      console.log();
+      const str = takeTheStringToTransform(index);
+      const upperCaseArr = getUpperCaseIndex(str)
+      return console.log(splitClass(str, upperCaseArr))
     } else {
-      console.log(
-        `split the method that have the first semi colon at index ${index}`
-      );
-      let str = takeTheStringToTransform(index);
-      console.log(str);
-      console.log(`Input string: ${str}`);
-
-      console.log(getUpperCaseIndex(str));
-
-      console.log();
+      const str = takeTheStringToTransform(index);
+      const upperCaseArr = getUpperCaseIndex(str)
+      return console.log(splitMethod(str, upperCaseArr))
     }
   };
 
@@ -135,10 +207,10 @@ function processData(input) {
   const takeTheStringToTransform = (index) => {
     const firstIndex = index + 3;
     let finalIndex;
-    for (let i = index; i < string.length; i++) {
-      if (string[i] === " " && string[i + 1] === " ") {
-        finalIndex = i;
-        break;
+    for (let i = firstIndex; i < string.length; i++) {
+      if (string[i] === ";" && string[i + 2] === ";") {
+        finalIndex = i - 1
+        break
       }
     }
     return string.slice(firstIndex, finalIndex);
@@ -148,6 +220,12 @@ function processData(input) {
     const positionIsValid =
       string[i] === ";" && string[i + 2] === ";" ? testMethod(i) : false;
   }
+
 }
 
-console.log(processData(in1));
+// console.log(processData(test));
+// console.log(processData(test1));
+console.log(processData(test2));
+
+
+
