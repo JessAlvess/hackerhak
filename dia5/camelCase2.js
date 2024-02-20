@@ -1,6 +1,5 @@
 function processData(input) {
     let words = input.split('\r\n')
-    console.log(words);
     for(let i = 0; i < words.length; i++){
         let split = words[i].substring(0,1) === 'S';
         let type = words[i].substring(2,3);
