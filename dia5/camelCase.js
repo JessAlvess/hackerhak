@@ -224,7 +224,7 @@ function processData(input) {
 
 // console.log(processData(test));
 // console.log(processData(test1));
-console.log(processData(test2));
+processData(test2);
 
 
 
